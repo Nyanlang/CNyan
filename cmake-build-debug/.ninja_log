@@ -1,0 +1,10 @@
+# ninja log v5
+1	820	7020434360000000	CMakeFiles/NyanLang.dir/main.cpp.obj	e623bf1fedc9b7f9
+372	889	7021383860000000	NyanLang.exe	462afffacd1c88a5
+22	341	7021383840000000	CMakeFiles/NyanLang.dir/util.c.obj	a271b87a5ff9cb39
+8	372	7021383840000000	CMakeFiles/NyanLang.dir/nyan.c.obj	b3567e2375d1a840
+42	461	7021381140000000	CMakeFiles/NyanLang.dir/main.c.obj	82a0af1deaf68e9e
+4	137	7021362520000000	CMakeFiles/NyanLang.dir/mouse.c.obj	19a05d96b0dc3e32
+2	107	7021564500000000	CMakeFiles/NyanLang.dir/argparse.c.obj	c53de197b87fa0f6
+7	112	7021564500000000	CMakeFiles/NyanLang.dir/main.c.obj	82a0af1deaf68e9e
+112	327	7021564500000000	NyanLang.exe	4a08d2a30afc3120

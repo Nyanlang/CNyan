@@ -5,10 +5,12 @@
 #include "mouse.h"
 #include "util.h"
 
-int main() {
+int main(int argc, char** argv) {
     setlocale(LC_ALL, ""); // set the locale to the user's default locale
 
-    struct nyan_s nyan = parse_nyan("test.nyan");
+    char* filename = argv[1];
+
+    struct nyan_s nyan = parse_nyan(filename);
     run_nyan(nyan, NULL);
 
     return EXIT_SUCCESS;

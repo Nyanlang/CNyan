@@ -2,8 +2,8 @@
 #include <malloc.h>
 #include <ctype.h>
 #include <stdio.h>
-#include <wctype.h>
 #include <stdint.h>
+#include <wctype.h>
 
 #define EXIT_FAILURE -1
 #define EXIT_SUCCESS 0
