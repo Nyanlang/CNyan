@@ -9,7 +9,9 @@
 
 struct nyan_s {
     unsigned short* commands;
-    int len;
+    size_t len;
+    struct mouse* mice;
+    size_t mice_len;
 };
 
 enum nyan_command {
@@ -21,9 +23,15 @@ enum nyan_command {
     PRINT = 5,
     JUMP_ZERO = 6,
     JUMP_NON_ZERO = 7,
+    MODULE_POINTER_ADD = 8,
+    MODULE_POINTER_SUB = 9,
+    MODULE_RETURN = 10,
+    MODULE_RETREIVE = 11,
+
+    IGNORE = 12
 };
 
-void run_nyan(struct nyan_s nyan);
-struct nyan_s parse_nyan(wchar_t* code, int len);
+int run_nyan(struct nyan_s nyan, int * rv);
+struct nyan_s parse_nyan(char* filename);
 
 #endif //NYANLANG_NYAN_H

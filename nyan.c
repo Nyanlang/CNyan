@@ -2,7 +2,11 @@
 #include <stdio.h>
 #include <wchar.h>
 #include <fcntl.h>
+#include <stdbool.h>
 #include "nyan.h"
+#include "mouse.h"
+#include "util.h"
+
 #define MEMSIZE 1024
 
 struct jump_pair {
@@ -40,13 +44,20 @@ void set_jump_pair(struct nyan_s *nyan, struct jump_pair *jump_pairs, int *jplen
     }
 }
 
-void run_nyan(struct nyan_s nyan) {\
-    int memory[MEMSIZE];
+int run_nyan(struct nyan_s nyan,  int * rv) {
+    int *memory = malloc(sizeof(int) * MEMSIZE);
     for (int i = 0; i < MEMSIZE; i++) {
         memory[i] = 0;
     }
 
     int pointer = 0;
+    int module_pointer = 0;
+
+    if (rv == NULL) {
+        memory[pointer] = 0;
+    } else {
+        memory[pointer] = *rv;
+    }
 
     uintptr_t max_gone = 0;
     uintptr_t min_gone = 0;
@@ -98,15 +109,72 @@ void run_nyan(struct nyan_s nyan) {\
                     }
                 }
                 break;
+            case MODULE_POINTER_ADD:
+                module_pointer++;
+                break;
+            case MODULE_POINTER_SUB:
+                module_pointer--;
+                break;
+            case MODULE_RETREIVE:
+                {
+                    struct mouse* mice = nyan.mice;
+                    for (int j = 0; j < nyan.mice_len; j++) {
+                        if (mice[j].x == module_pointer) {
+                            // call child mice
+                            struct nyan_s child_nyan = parse_nyan(mice[j].f);
+                            int ret = run_nyan(child_nyan, &memory[pointer]);
+                            memory[pointer] = ret;
+                            break;
+                        }
+                    }
+                }
+                break;
+            case MODULE_RETURN:
+                // return to parent module
+                return memory[pointer];
+                break;
         }
     }
+    return -1;
 }
 
 // create a function that returns nyan struct
-struct nyan_s parse_nyan(wchar_t* code, int len) {
+struct nyan_s parse_nyan(char* filename) {
+    wchar_t* code = NULL;
+    size_t len = 0;
+    wread_file(&code, &len, filename);
+
+    char* mbuffer = NULL;
+    size_t msize;
+    char* mousename = remove_nyan_ext(filename);
+    strcat(mousename, ".mouse");
+    read_file(&mbuffer, &msize, mousename);
+
+
+    int mlen;
+    struct mouse* mice = parse_mouse(mbuffer, &mlen);
+
     struct nyan_s nyan;
-    nyan.commands = malloc(len * sizeof(unsigned short));
+    nyan.commands = calloc(len, sizeof(unsigned int*));
+    for (int i = 0; i < len; i++) {
+        nyan.commands[i] = IGNORE;
+    }
     nyan.len = len;
+
+    nyan.mice = mice;
+
+    nyan.mice_len = mlen;
+
+
+
+//    for (int i = 0; i < nyan.mice_len; i++) {
+//        int x;
+//        int y;
+//        memcpy(&x, &nyan.mice[i]->x, sizeof(int));
+//        memcpy(&y, &nyan.mice[i]->y, sizeof(int));
+//        printf("NYMouse %d: %d, %d, %s\n", i, x, y, nyan.mice[i]->f);
+//    }
+
     for (int i = 0; i < len; i++) {
         switch (code[i]) {
             case L'?':
@@ -133,15 +201,34 @@ struct nyan_s parse_nyan(wchar_t* code, int len) {
             case L'-':
                 nyan.commands[i] = JUMP_NON_ZERO;
                 break;
+            case L'먕':
+                nyan.commands[i] = MODULE_POINTER_ADD;
+                break;
+            case L'먀':
+                nyan.commands[i] = MODULE_POINTER_SUB;
+                break;
+            case L':':
+                nyan.commands[i] = MODULE_RETREIVE;
+                break;
+            case L';':
+                nyan.commands[i] = MODULE_RETURN;
+                break;
             case L' ':
+                nyan.commands[i] = IGNORE;
                 // ignore whitespace
                 break;
             case L'\n':
+                nyan.commands[i] = IGNORE;
                 // ignore newlines
                 break;
             default:
                 wprintf(L"Unknown command: %lc\n", code[i]);
         }
     }
+
+    free(mbuffer);
+    free(mousename);
+    free(code);
+
     return nyan;
 }
