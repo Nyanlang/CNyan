@@ -1,3 +1,0 @@
-/home/minco/CNyan/CMakeFiles/NyanLang.dir
-/home/minco/CNyan/CMakeFiles/edit_cache.dir
-/home/minco/CNyan/CMakeFiles/rebuild_cache.dir
