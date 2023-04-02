@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/NyanLang.dir/main.c.o CMakeFiles/NyanLang.dir/nyan.c.o CMakeFiles/NyanLang.dir/mouse.c.o CMakeFiles/NyanLang.dir/util.c.o -o NyanLang 
