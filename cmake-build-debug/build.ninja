@@ -61,6 +61,18 @@ build CMakeFiles/NyanLang.dir/nyan.c.obj: C_COMPILER__NyanLang_Debug E$:/Documen
   OBJECT_DIR = CMakeFiles\NyanLang.dir
   OBJECT_FILE_DIR = CMakeFiles\NyanLang.dir
 
+build CMakeFiles/NyanLang.dir/mouse.c.obj: C_COMPILER__NyanLang_Debug E$:/Documents/CLionProjects/NyanLang/mouse.c || cmake_object_order_depends_target_NyanLang
+  DEP_FILE = CMakeFiles\NyanLang.dir\mouse.c.obj.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu11
+  OBJECT_DIR = CMakeFiles\NyanLang.dir
+  OBJECT_FILE_DIR = CMakeFiles\NyanLang.dir
+
+build CMakeFiles/NyanLang.dir/util.c.obj: C_COMPILER__NyanLang_Debug E$:/Documents/CLionProjects/NyanLang/util.c || cmake_object_order_depends_target_NyanLang
+  DEP_FILE = CMakeFiles\NyanLang.dir\util.c.obj.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu11
+  OBJECT_DIR = CMakeFiles\NyanLang.dir
+  OBJECT_FILE_DIR = CMakeFiles\NyanLang.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target NyanLang
@@ -69,7 +81,7 @@ build CMakeFiles/NyanLang.dir/nyan.c.obj: C_COMPILER__NyanLang_Debug E$:/Documen
 #############################################
 # Link the executable NyanLang.exe
 
-build NyanLang.exe: C_EXECUTABLE_LINKER__NyanLang_Debug CMakeFiles/NyanLang.dir/main.c.obj CMakeFiles/NyanLang.dir/nyan.c.obj
+build NyanLang.exe: C_EXECUTABLE_LINKER__NyanLang_Debug CMakeFiles/NyanLang.dir/main.c.obj CMakeFiles/NyanLang.dir/nyan.c.obj CMakeFiles/NyanLang.dir/mouse.c.obj CMakeFiles/NyanLang.dir/util.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\NyanLang.dir
