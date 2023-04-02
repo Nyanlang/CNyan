@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <wchar.h>
 #include <fcntl.h>
-#include <stdbool.h>
+#include <stdint.h>
 #include "nyan.h"
 #include "mouse.h"
 #include "util.h"

@@ -2,7 +2,11 @@
 #include <malloc.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <wctype.h>
 
+#define EXIT_FAILURE -1
+#define EXIT_SUCCESS 0
 #define MAX_STR_LEN 1024
 
 char **split_lines(char *str, int *count) {
